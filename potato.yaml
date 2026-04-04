@@ -34,6 +34,6 @@ developer:
   output_zip_file: package.spk.zip
   include_files:
     - 'ui/dist/**/*,public'
-    - server.lua
+    - server/server.lua
 
   build_command: 'cd ui && { [ -d node_modules ] || bun install; } && bun run build'
