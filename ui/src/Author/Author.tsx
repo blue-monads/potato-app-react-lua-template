@@ -1,5 +1,6 @@
 import { useParams, Link } from 'react-router'
 import authors from './authors'
+import { BASE_PATH } from '../lib/base'
 
 interface AuthorData {
   name: string
@@ -16,14 +17,14 @@ function Author() {
     return (
       <div className="min-h-screen w-full p-8">
         <h1 className="text-2xl font-bold mb-6">Author not found</h1>
-        <Link to="/" className="text-blue-600 hover:underline">Back to Authors</Link>
+        <Link to={BASE_PATH} className="text-blue-600 hover:underline">Back to Authors</Link>
       </div>
     )
   }
 
   return (
     <div className="min-h-screen w-full p-8">
-      <Link to="/" className="text-blue-600 hover:underline mb-6 inline-block">← Back to Authors</Link>
+      <Link to={BASE_PATH} className="text-blue-600 hover:underline mb-6 inline-block">← Back to Authors</Link>
       <h1 className="text-2xl font-bold mb-6">{authorData.name}</h1>
       <div className="space-y-4">
         {authorData.quotes.map((quote, index) => (

@@ -1,4 +1,4 @@
-name: potato-app-react-lua-template
+name: potato-app-react-lua-template-name
 info: potato-app-react-lua-template
 slug: potato-app-react-lua-template
 tags:
@@ -31,7 +31,7 @@ spaces:
 developer:
   server_url: http://localhost:7777
   token_env: SIMPLE_DEV_TOKEN
-  package_id: 8
+  package_id: 11
   output_zip_file: package.spk.zip
   include_files:
     - 'ui/dist/**/*,public'

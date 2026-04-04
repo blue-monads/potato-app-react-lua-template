@@ -1,5 +1,6 @@
 import { Link } from 'react-router'
 import authors from '../Author/authors'
+import { BASE_PATH } from '../lib/base'
 
 interface AuthorData {
   name: string
@@ -24,13 +25,13 @@ function Home() {
             return (
               <tr key={slug} className="hover:bg-gray-50">
                 <td className="border border-gray-300 px-4 py-2">
-                  <Link to={`/${slug}`} className="text-blue-600 hover:underline">
+                  <Link to={`${BASE_PATH}${slug}`} className="text-blue-600 hover:underline">
                     {data.name}
                   </Link>
                 </td>
 
                 <td className="border border-gray-300 px-4 py-2">
-                  <Link to={`/${slug}`} className="text-blue-600 hover:underline">
+                  <Link to={`${BASE_PATH}${slug}`} className="text-blue-600 hover:underline">
                     View Quotes
                   </Link>
                 </td>
