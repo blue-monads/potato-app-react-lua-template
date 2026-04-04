@@ -1,5 +1,5 @@
-name: Simple Event Map
-info: Simple Event Map
+name: potato-app-react-lua-template
+info: potato-app-react-lua-template
 slug: potato-app-react-lua-template
 tags:
   - gis
@@ -31,9 +31,9 @@ spaces:
 developer:
   server_url: http://localhost:7777
   token_env: SIMPLE_DEV_TOKEN
+  package_id: 8
   output_zip_file: package.spk.zip
   include_files:
     - 'ui/dist/**/*,public'
     - server/server.lua
-
   build_command: 'cd ui && { [ -d node_modules ] || bun install; } && bun run build'
