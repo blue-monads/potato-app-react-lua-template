@@ -23,9 +23,19 @@
     <script id="main-script" type="module" src="./src/main.tsx"></script>
 
     <!-- IN DEV MODE -->
+
+    <script>
+
+      if (!window.spaceGetToken('potato-app-react-lua-template')) {
+        window.spaceRedirrectToAuth('/zz/space/potato-app-react-lua-template');
+      }
+      
+    </script>
     
     <script src="../../static/libspace.js"></script>
     <link rel="stylesheet" href="../../static/fontawesome/css/all.min.css">
+
+
     
   </body>
 
