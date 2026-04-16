@@ -22,7 +22,17 @@ function list_authors(ctx)
     })
 end
 
-
+function run_migrations(ctx)
+    local req = ctx.request()
+    local result, err = potato.cap.execute("xMigrator", "run_migrations", {folder = "migration"})
+    
+    if err then
+        req.json(500, {error = tostring(err)})
+        return
+    end
+    
+    req.json(200, result)
+end
 
 function on_http(ctx)
     local req = ctx.request()
@@ -34,6 +44,9 @@ function on_http(ctx)
         return list_authors(ctx)
     end
 
+    if path == "/setup" and method == "POST" then
+        return run_migrations(ctx)
+    end
 
     req.json(404, {
         message = "Not Found"
