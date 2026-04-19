@@ -2,9 +2,9 @@ name: potato-app-react-lua-template
 info: potato-app-react-lua-template
 slug: potato-app-react-lua-template
 tags:
-  - gis
-  - map
-  - event
+  - "potato-executor:luaz"
+  - "potato-db:sqlite"
+  - "fun"
 format_version: '0.0.2'
 author_name: Bornjre
 author_email: bornjre@gmail.com
