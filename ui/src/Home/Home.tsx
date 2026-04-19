@@ -1,13 +1,49 @@
 import { Link } from 'react-router'
-import authors from '../Author/authors'
+import { useEffect, useState } from 'react'
 import { BASE_PATH } from '../lib/base'
+import { authorsApi } from '../lib/api'
 
-interface AuthorData {
+type Author = {
   name: string
   quotes: string[]
 }
 
 function Home() {
+  const [authors, setAuthors] = useState<Record<string, Author>>({})
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    authorsApi.list()
+      .then(data => {
+        setAuthors(data)
+        setLoading(false)
+      })
+      .catch(err => {
+        console.error('Failed to load authors:', err)
+        setError('Failed to load authors')
+        setLoading(false)
+      })
+  }, [])
+
+  if (loading) {
+    return (
+      <div className="min-h-screen w-full p-8">
+        <h1 className="text-2xl font-bold mb-6">Authors</h1>
+        <p>Loading...</p>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen w-full p-8">
+        <h1 className="text-2xl font-bold mb-6">Authors</h1>
+        <p className="text-red-600">{error}</p>
+      </div>
+    )
+  }
+
   return (
     <div className="min-h-screen w-full p-8">
       <h1 className="text-2xl font-bold mb-6">Authors</h1>
@@ -20,8 +56,7 @@ function Home() {
           </tr>
         </thead>
         <tbody>
-          {authors.map((authorEntry) => {
-            const [slug, data] = Object.entries(authorEntry)[0] as [string, AuthorData]
+          {Object.entries(authors).map(([slug, data]) => {
             return (
               <tr key={slug} className="hover:bg-gray-50">
                 <td className="border border-gray-300 px-4 py-2">

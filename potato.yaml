@@ -31,6 +31,9 @@ capabilities:
   - name: xMigrator
     options:
       folder: migration
+  - name: xStaticSeeder
+    options:
+      staticseeder_folder: seed
 
 
 developer:
@@ -43,4 +46,5 @@ developer:
     - 'server/server.lua,server.lua'
     - 'meta/init.html,public/init.html'
     - 'server/migration/**/*.sql,migration'
+    - 'server/seed/**/*.json,seed'
   build_command: 'cd ui && { [ -d node_modules ] || bun install; } && bun run build'

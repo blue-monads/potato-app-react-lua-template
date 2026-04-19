@@ -16,13 +16,21 @@ function list_authors(ctx)
     local userId = get_user_id(req)
     if userId == nil then return end
 
+    local authors, err = potato.db.find_all_by_cond("Authors", {})
+    if err then
+        req.json(500, {error = tostring(err)})
+        return
+    end
 
-    req.json_array(200, {
-        
-    })
+    req.json(200, authors)
+    
 end
 
 function run_migrations(ctx)
+
+    print("Running migrations...")
+
+
     local req = ctx.request()
     local result, err = potato.cap.execute("xMigrator", "run_migrations", {folder = "migration"})
     
@@ -30,8 +38,21 @@ function run_migrations(ctx)
         req.json(500, {error = tostring(err)})
         return
     end
+
+
+    print("Migrations completed, running seeders...")
+
+    -- Run seeders after migrations
+    local seedResult, seedErr = potato.cap.execute("xStaticSeeder", "seed", {seed_folder = "seed"})
     
-    req.json(200, result)
+    if seedErr then
+        req.json(500, {error = tostring(seedErr)})
+        return
+    end
+
+    print("Seeding completed")
+    
+    req.json(200, {message = "Migrations and seeding completed"})
 end
 
 function on_http(ctx)

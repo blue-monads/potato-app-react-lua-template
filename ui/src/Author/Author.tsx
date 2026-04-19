@@ -1,17 +1,52 @@
 import { useParams, Link } from 'react-router'
-import authors from './authors'
+import { useEffect, useState } from 'react'
 import { BASE_PATH } from '../lib/base'
+import { authorsApi } from '../lib/api'
 
-interface AuthorData {
+type Author = {
   name: string
   quotes: string[]
 }
 
 function Author() {
   const { author: authorSlug } = useParams<{ author: string }>()
+  const [authors, setAuthors] = useState<Record<string, Author>>({})
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
-  const authorEntry = authors.find((a) => Object.keys(a)[0] === authorSlug)
-  const authorData = authorEntry ? Object.values(authorEntry)[0] as AuthorData : null
+  useEffect(() => {
+    authorsApi.list()
+      .then(data => {
+        setAuthors(data)
+        setLoading(false)
+      })
+      .catch(err => {
+        console.error('Failed to load authors:', err)
+        setError('Failed to load authors')
+        setLoading(false)
+      })
+  }, [])
+
+  const authorData = authors[authorSlug || ''] || null
+
+  if (loading) {
+    return (
+      <div className="min-h-screen w-full p-8">
+        <h1 className="text-2xl font-bold mb-6">Loading...</h1>
+        <Link to={BASE_PATH} className="text-blue-600 hover:underline">Back to Authors</Link>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen w-full p-8">
+        <h1 className="text-2xl font-bold mb-6">Error</h1>
+        <p className="text-red-600">{error}</p>
+        <Link to={BASE_PATH} className="text-blue-600 hover:underline">Back to Authors</Link>
+      </div>
+    )
+  }
 
   if (!authorData) {
     return (
