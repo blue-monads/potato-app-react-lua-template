@@ -33,7 +33,7 @@ capabilities:
       folder: migration
   - name: xStaticSeeder
     options:
-      staticseeder_folder: seed
+      folder: seed
 
 
 developer:
