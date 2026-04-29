@@ -1,1 +1,1 @@
-# potato app react lua template
+# potato-app-react-lua-template
